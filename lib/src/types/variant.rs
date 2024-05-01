@@ -1415,12 +1415,7 @@ impl Variant {
     pub fn array_data_type(&self) -> Option<NodeId> {
         match self {
             Variant::Array(array) => {
-                if array.values.is_empty() {
-                    error!("Cannot get the data type of an empty array");
-                    None
-                } else {
-                    array.values[0].scalar_data_type()
-                }
+                array.value_type.scalar_data_type()
             }
             _ => None,
         }

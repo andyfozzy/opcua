@@ -171,6 +171,37 @@ impl VariantTypeId {
         }
     }
 
+    // Returns the scalar data type. Returns None for empty, arrays or extensionobjects
+    pub fn scalar_data_type(&self) -> Option<NodeId> {
+        match self {
+            VariantTypeId::Boolean => Some(DataTypeId::Boolean.into()),
+            VariantTypeId::SByte => Some(DataTypeId::SByte.into()),
+            VariantTypeId::Byte => Some(DataTypeId::Byte.into()),
+            VariantTypeId::Int16 => Some(DataTypeId::Int16.into()),
+            VariantTypeId::UInt16 => Some(DataTypeId::UInt16.into()),
+            VariantTypeId::Int32 => Some(DataTypeId::Int32.into()),
+            VariantTypeId::UInt32 => Some(DataTypeId::UInt32.into()),
+            VariantTypeId::Int64 => Some(DataTypeId::Int64.into()),
+            VariantTypeId::UInt64 => Some(DataTypeId::UInt64.into()),
+            VariantTypeId::Float => Some(DataTypeId::Float.into()),
+            VariantTypeId::Double => Some(DataTypeId::Double.into()),
+            VariantTypeId::String => Some(DataTypeId::String.into()),
+            VariantTypeId::DateTime => Some(DataTypeId::DateTime.into()),
+            VariantTypeId::Guid => Some(DataTypeId::Guid.into()),
+            VariantTypeId::ByteString => Some(DataTypeId::ByteString.into()),
+            VariantTypeId::XmlElement => Some(DataTypeId::XmlElement.into()),
+            VariantTypeId::NodeId => Some(DataTypeId::NodeId.into()),
+            VariantTypeId::ExpandedNodeId => Some(DataTypeId::ExpandedNodeId.into()),
+            VariantTypeId::StatusCode => Some(DataTypeId::StatusCode.into()),
+            VariantTypeId::QualifiedName => Some(DataTypeId::QualifiedName.into()),
+            VariantTypeId::LocalizedText => Some(DataTypeId::LocalizedText.into()),
+            VariantTypeId::Variant => Some(DataTypeId::BaseDataType.into()),
+            VariantTypeId::DataValue => Some(DataTypeId::DataValue.into()),
+            VariantTypeId::DiagnosticInfo => Some(DataTypeId::DiagnosticInfo.into()),
+            VariantTypeId::Array | VariantTypeId::Empty | VariantTypeId::ExtensionObject => None
+        }
+    }
+
     /// Tests and returns true if the variant holds a numeric type
     pub fn is_numeric(&self) -> bool {
         matches!(
