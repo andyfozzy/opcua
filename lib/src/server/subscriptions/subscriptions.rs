@@ -141,13 +141,13 @@ impl Subscriptions {
     ) -> Result<(), StatusCode> {
         // Check if we have too  requests waiting already
         let max_publish_requests = self.max_publish_requests();
-        if self.publish_request_queue.len() >= max_publish_requests {
+        if self.publish_request_queue.len() > max_publish_requests {
             // Tick to trigger publish, maybe remove a request to make space for new one
             let _ = self.tick(now, address_space, TickReason::ReceivePublishRequest);
         }
 
         // Enqueue request or return error
-        if self.publish_request_queue.len() >= max_publish_requests {
+        if self.publish_request_queue.len() > max_publish_requests {
             error!(
                 "Too many publish requests {} for capacity {}",
                 self.publish_request_queue.len(),
